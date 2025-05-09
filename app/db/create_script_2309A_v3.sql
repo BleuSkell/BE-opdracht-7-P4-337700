@@ -1,94 +1,124 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
+-- author: BleuSkell
 -- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3306
--- Gegenereerd op: 03 jun 2024 om 13:35
--- Serverversie: 8.0.32
--- PHP-versie: 8.3.7
+-- create script for database be_examtraining
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+--
+-- Database: `be_examtraining`
+--
+DROP DATABASE IF EXISTS `be_examtraining`;
+CREATE DATABASE `be_examtraining` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `be_examtraining`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- ---------------------------------------------------------
 
 --
--- Database: `mvcframework-2309a`
+-- Table structure for table `TypeVoertuig`
 --
-CREATE DATABASE IF NOT EXISTS `mvcframework-2309a` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `mvcframework-2309a`;
+CREATE TABLE typevoertuig (
+  Id int NOT NULL AUTO_INCREMENT
+  ,TypeVoertuig varchar(50) NOT NULL
+  ,RijbewijsCategorie varchar(50) NOT NULL
 
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `Country`
---
-
-DROP TABLE IF EXISTS `Country`;
-CREATE TABLE IF NOT EXISTS `Country` (
-  `Id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Name` varchar(250) NOT NULL,
-  `CapitalCity` varchar(250) NOT NULL,
-  `Continent` varchar(250) NOT NULL,
-  `Population` int NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  ,PRIMARY KEY (Id)
+)ENGINE=InnoDB;
 
 --
--- Gegevens worden geëxporteerd voor tabel `Country`
+-- Insert data for table `TypeVoertuig`
 --
+INSERT INTO typevoertuig (Id, TypeVoertuig, RijbewijsCategorie)
+VALUES  (1, 'Personenauto', 'B')
+        ,(2, 'Vrachtwagen', 'C')
+        ,(3, 'Bus', 'D')
+        ,(4, 'Bromfiets', 'AM');
 
-INSERT INTO `Country` (`Id`, `Name`, `CapitalCity`, `Continent`, `Population`) VALUES
-(2, 'Tanzania', 'Dodoma', 'Afrika', 63590000),
-(4, 'Japan', 'Tokio', 'Azi&euml;', 125700000),
-(5, 'Zwitserlandd', 'Bern', 'Europa', 8703000),
-(6, 'Noorwegen', 'Oslo', 'Europa', 5550203),
-(11, 'Litouwen', 'Vilnius', 'Europa', 340000000),
-(15, 'Marokko', 'Rabat', 'Afrika', 37500000),
-(16, 'Nepal', 'Kathmandu', 'Azi&euml;', 30000000),
-(17, 'Chili', 'Santiago', 'Zuid-Amerika', 18276870),
-(18, 'Japan', 'Tokio', 'Azi&euml;', 125700000);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- --------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `Zangeres`
+-- Table structure for table `Voertuig`
 --
+CREATE TABLE voertuig (
+  Id int NOT NULL AUTO_INCREMENT
+  ,Kenteken varchar(50) NOT NULL
+  ,Type varchar(50) NOT NULL
+  ,Bouwjaar date NOT NULL
+  ,Brandstof varchar(20) NOT NULL
+  ,TypeVoertuigId int NOT NULL
 
-DROP TABLE IF EXISTS `Zangeres`;
-CREATE TABLE IF NOT EXISTS `Zangeres` (
-  `Id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Naam` varchar(100) NOT NULL,
-  `NettoWaarde` smallint NOT NULL,
-  `Land` varchar(100) NOT NULL,
-  `Mobiel` varchar(20) NOT NULL,
-  `Leeftijd` tinyint NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  ,PRIMARY KEY (Id)
+  ,CONSTRAINT FK_Voertuig_TypeVoertuig FOREIGN KEY (TypeVoertuigId) REFERENCES typevoertuig (Id) ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
 
 --
--- Gegevens worden geëxporteerd voor tabel `Zangeres`
+-- Insert data for table `Voertuig`
 --
+INSERT INTO voertuig (Id, Kenteken, Type, Bouwjaar, Brandstof, TypeVoertuigId) 
+VALUES  (1, 'AU-67-IO', 'Golf', '2017-06-12', 'Diesel', 1)
+        ,(2, 'TR-24-OP', 'DAF', '2019-05-23', 'Diesel', 2)
+        ,(3, 'TH-78-KL', 'Mercedes', '2023-01-01', 'Benzine', 1)
+        ,(4, '90-KL-TR', 'Fiat 500', '2021-09-12', 'Benzine', 1)
+        ,(5, '34-TK-LP', 'Scania', '2015-03-13', 'Diesel', 2)
+        ,(6, 'YY-OP-78', 'BMW M5', '2022-05-13', 'Diesel', 1)
+        ,(7, 'UU-HH-JK', 'M.A.N', '2017-12-03', 'Diesel', 2)
+        ,(8, 'ST-FZ-28', 'Citroën', '2018-01-20', 'Elektrisch', 1)
+        ,(9, '123-FR-T', 'Piaggio ZIP', '2021-02-01', 'Benzine', 4)
+        ,(10, 'DRS-52-P', 'Vespa', '2022-03-21', 'Benzine', 4)
+        ,(11, 'STP-12-U', 'Kymco', '2022-07-02', 'Benzine', 4)
+        ,(12, '45-SD-23', 'Renault', '2023-01-01', 'Diesel', 3);
 
-INSERT INTO `Zangeres` (`Id`, `Naam`, `NettoWaarde`, `Land`, `Mobiel`, `Leeftijd`) VALUES
-(1, 'Rihanna', 1400, 'Barbados', '+1246240001862400', 36),
-(2, 'Madonna', 575, 'Verenigde Staten', '+1 3425 185876', 65),
-(3, 'Taylor', 570, 'Verenigde Staten', '+1 5876 236512', 34),
-(4, 'Beyoncé', 420, 'Verenigde Staten', '+1 6794908465', 42),
-(5, 'Jennifer Lopez', 400, 'Verenigde Staten', '+1 3131 857345', 54);
-COMMIT;
+-- --------------------------------------------------------------------------------------------------------------------
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- Table structure for table `Instructeur`
+--
+CREATE TABLE instructeur (
+  Id int NOT NULL AUTO_INCREMENT
+  ,Voornaam varchar(50) NOT NULL
+  ,Tussenvoegsel varchar(10) DEFAULT NULL
+  ,Achternaam varchar(50) NOT NULL
+  ,Mobiel varchar(20) NOT NULL
+  ,DatumInDienst date NOT NULL
+  ,AantalSterren varchar(5) NOT NULL
 
+  ,PRIMARY KEY (Id)
+)ENGINE=InnoDB;
+
+--
+-- Insert data for table `Instructeur`
+--
+INSERT INTO instructeur (Id, Voornaam, Tussenvoegsel, Achternaam, Mobiel, DatumInDienst, AantalSterren)
+VALUES  (1, 'Li', NULL, 'Zhan', '06-28493827', '2015-04-17', '***')
+        ,(2, 'Leroy', NULL, 'Boerhaven', '06-39398734', '2018-06-25', '*')
+        ,(3, 'Yoeri', 'Van', 'Veen', '06-24383291', '2010-05-12', '***')
+        ,(4, 'Bert', 'Van', 'Sali', '06-48293823', '2023-01-10', '****')
+        ,(5, 'Mohammed', 'El', 'Yassidi', '06-34291234', '2010-06-14', '****');
+
+-- --------------------------------------------------------------------------------------------------------------------
+
+--
+-- Table structure for table `VoertuigInstructeur`
+--
+CREATE TABLE voertuigInstructeur (
+  Id int NOT NULL AUTO_INCREMENT
+  ,VoertuigId int NOT NULL
+  ,InstructeurId int NOT NULL
+  ,DatumToekenning date NOT NULL
+
+  ,PRIMARY KEY (Id)
+  ,CONSTRAINT FK_VoertuigInstructeur_Voertuig FOREIGN KEY (VoertuigId) REFERENCES voertuig (Id) ON DELETE CASCADE ON UPDATE CASCADE
+  ,CONSTRAINT FK_VoertuigInstructeur_Instructeur FOREIGN KEY (InstructeurId) REFERENCES instructeur (Id) ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+--
+-- Insert data for table `VoertuigInstructeur`
+--
+INSERT INTO voertuigInstructeur (Id, VoertuigId, InstructeurId, DatumToekenning)
+VALUES  (1, 1, 5, '2017-06-18')
+        ,(2, 3, 1, '2021-09-26')
+        ,(3, 9, 1, '2021-09-27')
+        ,(4, 4, 4, '2022-08-01')
+        ,(5, 5, 1, '2019-08-30')
+        ,(6, 10, 5, '2020-02-02');

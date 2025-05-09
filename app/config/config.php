@@ -3,7 +3,7 @@
  * De database verbindingsgegevens
  */
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'mvcframework-2309a');
+define('DB_NAME', 'be_examtraining');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
@@ -11,7 +11,7 @@ define('DB_PASS', '');
 /**
  * De naam van de virtualhost
  */
-define('URLROOT', 'http://mvc-framework-2309a-proeftoets.com');
+define('URLROOT', 'http://beexamtraining.local');
 
 
 /**
