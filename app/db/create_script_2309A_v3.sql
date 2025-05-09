@@ -22,6 +22,10 @@ CREATE TABLE typevoertuig (
   Id int NOT NULL AUTO_INCREMENT
   ,TypeVoertuig varchar(50) NOT NULL
   ,RijbewijsCategorie varchar(50) NOT NULL
+  ,IsActief boolean NOT NULL DEFAULT 1
+  ,Opmerking varchar(255) DEFAULT NULL
+  ,DatumAangemaakt datetime(6) NOT NULL DEFAULT now(6)
+  ,DatumGewijzigd datetime(6) NOT NULL DEFAULT now(6) ON UPDATE now(6)
 
   ,PRIMARY KEY (Id)
 )ENGINE=InnoDB;
@@ -47,6 +51,10 @@ CREATE TABLE voertuig (
   ,Bouwjaar date NOT NULL
   ,Brandstof varchar(20) NOT NULL
   ,TypeVoertuigId int NOT NULL
+  ,IsActief boolean NOT NULL DEFAULT 1
+  ,Opmerking varchar(255) DEFAULT NULL
+  ,DatumAangemaakt datetime(6) NOT NULL DEFAULT now(6)
+  ,DatumGewijzigd datetime(6) NOT NULL DEFAULT now(6) ON UPDATE now(6)
 
   ,PRIMARY KEY (Id)
   ,CONSTRAINT FK_Voertuig_TypeVoertuig FOREIGN KEY (TypeVoertuigId) REFERENCES typevoertuig (Id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -82,6 +90,10 @@ CREATE TABLE instructeur (
   ,Mobiel varchar(20) NOT NULL
   ,DatumInDienst date NOT NULL
   ,AantalSterren varchar(5) NOT NULL
+  ,IsActief boolean NOT NULL DEFAULT 1
+  ,Opmerking varchar(255) DEFAULT NULL
+  ,DatumAangemaakt datetime(6) NOT NULL DEFAULT now(6)
+  ,DatumGewijzigd datetime(6) NOT NULL DEFAULT now(6) ON UPDATE now(6)
 
   ,PRIMARY KEY (Id)
 )ENGINE=InnoDB;
@@ -106,6 +118,10 @@ CREATE TABLE voertuigInstructeur (
   ,VoertuigId int NOT NULL
   ,InstructeurId int NOT NULL
   ,DatumToekenning date NOT NULL
+  ,IsActief boolean NOT NULL DEFAULT 1
+  ,Opmerking varchar(255) DEFAULT NULL
+  ,DatumAangemaakt datetime(6) NOT NULL DEFAULT now(6)
+  ,DatumGewijzigd datetime(6) NOT NULL DEFAULT now(6) ON UPDATE now(6)
 
   ,PRIMARY KEY (Id)
   ,CONSTRAINT FK_VoertuigInstructeur_Voertuig FOREIGN KEY (VoertuigId) REFERENCES voertuig (Id) ON DELETE CASCADE ON UPDATE CASCADE
