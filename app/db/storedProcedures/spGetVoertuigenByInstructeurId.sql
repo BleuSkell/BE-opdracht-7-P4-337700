@@ -1,5 +1,5 @@
 /************************************************
--- Versie: 01
+-- Versie: 05
 -- Details: Stored procedure voor instructeur model method
 ************************************************/
 
@@ -16,7 +16,10 @@ CREATE PROCEDURE spGetVoertuigenByInstructeurId(
 )
 BEGIN
 
-    SELECT      INST.Id AS InstructeurId
+    SELECT      VTINST.Id AS VoertuigInstructeurId
+                ,VTINST.VoertuigId AS VoertuigInstructeurVoertuigId
+                ,VTINST.InstructeurId AS VoertuigInstructeurInstructeurId
+                ,INST.Id AS InstructeurId
                 ,INST.Voornaam AS Voornaam
                 ,INST.Tussenvoegsel AS Tussenvoegsel
                 ,INST.Achternaam AS Achternaam
@@ -31,19 +34,19 @@ BEGIN
                 ,VT.Bouwjaar AS Bouwjaar
                 ,VT.Brandstof AS Brandstof
 
-    FROM        voertuiginstructeur
+    FROM        voertuiginstructeur AS VTINST
 
     INNER JOIN  instructeur AS INST 
-        ON voertuiginstructeur.InstructeurId = INST.Id
+        ON VTINST.InstructeurId = INST.Id
     INNER JOIN  voertuig AS VT 
-        ON voertuiginstructeur.VoertuigId = VT.Id
+        ON VTINST.VoertuigId = VT.Id
     INNER JOIN  typevoertuig AS TPVT
         ON VT.TypeVoertuigId = TPVT.Id
 
     WHERE      INST.Id = instructeurId
 
-    GROUP BY  INST.Id
-    ORDER BY AantalSterren DESC;
+    GROUP BY  VTINST.Id
+    ORDER BY TPVT.RijbewijsCategorie DESC;
 
 END //
 DELIMITER ;
