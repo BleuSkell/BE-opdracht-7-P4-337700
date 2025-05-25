@@ -12,7 +12,7 @@ class Instructeurs extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Dit is de instructeurspagina',
+            'title' => 'Instructeurs in dienst',
             'message' => NULL,
             'messageColor' => NULL,
             'messageVisibility' => 'none',
@@ -32,6 +32,8 @@ class Instructeurs extends BaseController
         } else {
             $data['dataRows'] = $result;
         }
+
+        var_dump($data['dataRows']->TotaalInstructeurs);
 
         $this->view('instructeurs/index', $data);
     }
