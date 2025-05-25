@@ -36,7 +36,7 @@ class Instructeurs extends BaseController
         $this->view('instructeurs/index', $data);
     }
 
-    public function voertuigen($id)
+    public function voertuigen($instructeurId)
     {
         $data = [
             'title' => 'Door instructeur gebruikte voertuigen',
@@ -46,7 +46,7 @@ class Instructeurs extends BaseController
             'dataRows' => NULL
         ];
 
-        $result = $this->instructeurModel->getVoertuigenByInstructeurId($id);
+        $result = $this->instructeurModel->getVoertuigenByInstructeurId($instructeurId);
 
         if (is_null($result)) {
             // Fout afhandelen

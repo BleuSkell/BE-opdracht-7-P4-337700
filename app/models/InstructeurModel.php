@@ -29,13 +29,12 @@ class InstructeurModel
         }
     }
 
-    public function getVoertuigenByInstructeurId($id)
+    public function getVoertuigenByInstructeurId($instructeurId)
     {
         try {
-            $sql = "CALL spGetVoertuigenByInstructeurId(:instructeurId)";
+            $sql = "CALL spGetVoertuigenByInstructeurId($instructeurId)";
 
             $this->db->query($sql);
-            $this->db->bind(':instructeurId', $id);
 
             return $this->db->resultSet();
         } catch (Exception $e) {
