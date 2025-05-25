@@ -53,7 +53,11 @@
                                     <td><?= $instructeur->Mobiel; ?></td>
                                     <td><?= date('d-m-Y', strtotime($instructeur->DatumInDienst)); ?></td>
                                     <td><?= $instructeur->AantalSterren; ?></td>
-                                    <td>data</td>
+                                    <td class='text-center'>
+                                        <a href='<?= URLROOT . "/Instructeurs/voertuigen/$instructeur->InstructeurId" ?>'>
+                                            <i class='bi bi-car-front-fill'></i>
+                                        </a>
+                                    </td>
                                 </tr>
                     <?php } } ?>
                 </tbody>
