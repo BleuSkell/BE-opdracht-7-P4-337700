@@ -9,8 +9,8 @@
 
             <a href="<?= URLROOT; ?>/instructeurs/index">Instructeurs</a> |
             <a href="<?= URLROOT; ?>/Countries/index">Landen van de Wereld</a> |
-            <a href="<?= URLROOT; ?>/Zangeressen/index">Top 5 rijkste zangeressen</a>
-
+            <a href="<?= URLROOT; ?>/Zangeressen/index">Top 5 rijkste zangeressen</a> | 
+            <a href="<?= URLROOT; ?>/Instructeurs/index">Instructeurs in dienst</a>
         </div>
         <div class="col-3"></div>
     </div>
