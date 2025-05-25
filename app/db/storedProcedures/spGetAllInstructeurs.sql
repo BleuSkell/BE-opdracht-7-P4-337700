@@ -20,6 +20,7 @@ BEGIN
                 ,INST.Achternaam AS Achternaam
                 ,INST.Mobiel AS Mobiel
                 ,INST.AantalSterren AS AantalSterren
+                ,(SELECT COUNT(*) FROM instructeur) AS AantalInstructeurs
 
     FROM        instructeur AS INST
 

@@ -33,8 +33,6 @@ class Instructeurs extends BaseController
             $data['dataRows'] = $result;
         }
 
-        var_dump($data['dataRows']->TotaalInstructeurs);
-
         $this->view('instructeurs/index', $data);
     }
 
