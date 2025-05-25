@@ -62,4 +62,17 @@ class Instructeurs extends BaseController
 
         $this->view('instructeurs/voertuigen', $data);
     }
+
+    public function edit()
+    {
+        $data = [
+            'title' => 'Wijzigen voertuiggegevens',
+            'message' => NULL,
+            'messageColor' => NULL,
+            'messageVisibility' => 'none',
+            'dataRows' => NULL
+        ];
+
+        $this->view('instructeurs/edit', $data);
+    }
 }

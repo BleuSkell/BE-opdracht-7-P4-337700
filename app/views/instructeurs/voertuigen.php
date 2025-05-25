@@ -61,8 +61,8 @@
                                     <td><?= $voertuig->Brandstof ?></td>
                                     <td><?= $voertuig->RijbewijsCategorie ?></td>
                                     <td class='text-center'>
-                                        <a href='#'>
-                                            <i class='bi bi-car-front-fill'></i>
+                                        <a href='<?= URLROOT . "/Instructeurs/edit" ?>'>
+                                            <i class='bi bi-pencil-fill'></i>
                                         </a>
                                     </td>
                                 </tr>
