@@ -1,5 +1,5 @@
 /************************************************
--- Versie: 01
+-- Versie: 02
 -- Details: Stored procedure voor instructeur model method
 ************************************************/
 
@@ -19,6 +19,7 @@ BEGIN
                 ,INST.Tussenvoegsel AS Tussenvoegsel
                 ,INST.Achternaam AS Achternaam
                 ,INST.Mobiel AS Mobiel
+                ,INST.DatumInDienst AS DatumInDienst
                 ,INST.AantalSterren AS AantalSterren
                 ,(SELECT COUNT(*) FROM instructeur) AS AantalInstructeurs
 
