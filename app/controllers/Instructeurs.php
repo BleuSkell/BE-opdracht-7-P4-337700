@@ -88,14 +88,12 @@ class Instructeurs extends BaseController
             $data['instructeurs'] = NULL;
             $data['typevoertuigen'] = NULL;
 
-            // header('Refresh:3; url=' . URLROOT . '/Homepages/index');
+            header('Refresh:3; url=' . URLROOT . '/Homepages/index');
         } else {
-            $data['voertuiggegevens'] = $voertuiggegevens;
+            $data['voertuiggegevens'] = $voertuiggegevens[0];
             $data['instructeurs'] = $instructeurs;
             $data['typevoertuigen'] = $typevoertuigen;
         }
-
-        var_dump($data['instructeurs']);
 
         $this->view('instructeurs/edit', $data);
     }
