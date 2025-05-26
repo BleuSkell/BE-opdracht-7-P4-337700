@@ -78,4 +78,11 @@ class Database
         $this->statement->execute();
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
+
+    public function closeCursor()
+    {
+        if ($this->statement) {
+            $this->statement->closeCursor();
+        }
+    }
 }

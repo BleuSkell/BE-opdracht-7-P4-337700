@@ -16,6 +16,7 @@ CREATE PROCEDURE spGetVoertuiggegevensById(
 )
 BEGIN
 
+    -- haal voertuiggegevens op voor de gegeven voertuiginstructeurId
     SELECT      VTINST.Id AS VoertuigInstructeurId
                 ,INST.Id AS InstructeurId
                 ,INST.Voornaam

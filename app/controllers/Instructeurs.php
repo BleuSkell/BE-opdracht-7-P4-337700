@@ -70,22 +70,32 @@ class Instructeurs extends BaseController
             'message' => NULL,
             'messageColor' => NULL,
             'messageVisibility' => 'none',
-            'dataRows' => NULL,
+            'voertuiggegevens' => NULL,
+            'instructeurs' => NULL,
+            'typevoertuigen' => NULL,
         ];
 
-        $result = $this->instructeurModel->getVoertuiggegevensById($voertuiginstructeurId);
+        $voertuiggegevens = $this->instructeurModel->getVoertuiggegevensById($voertuiginstructeurId);
+        $instructeurs = $this->instructeurModel->getAllInstructeursSimple();
+        $typevoertuigen = $this->instructeurModel->getAllTypeVoertuigen();
 
-        if (is_null($result)) {
+        if (is_null($voertuiggegevens)) {
             // Fout afhandelen
             $data['message'] = "Er is een fout opgetreden in de database";
             $data['messageColor'] = "danger";
             $data['messageVisibility'] = "flex";
-            $data['dataRows'] = NULL;
+            $data['voertuiggegevens'] = NULL;
+            $data['instructeurs'] = NULL;
+            $data['typevoertuigen'] = NULL;
 
             // header('Refresh:3; url=' . URLROOT . '/Homepages/index');
         } else {
-            $data['dataRows'] = $result[0];
+            $data['voertuiggegevens'] = $voertuiggegevens;
+            $data['instructeurs'] = $instructeurs;
+            $data['typevoertuigen'] = $typevoertuigen;
         }
+
+        var_dump($data['instructeurs']);
 
         $this->view('instructeurs/edit', $data);
     }
