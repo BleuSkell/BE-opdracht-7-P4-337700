@@ -104,4 +104,35 @@ class InstructeurModel
             logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
         }
     }
+
+    public function updateVoertuiggegevens($data)
+    {
+        try{
+            $sql = "CALL spUpdateVoertuiggegevens(
+                        :voertuiginstructeurId
+                        ,:instructeurId
+                        ,:typevoertuigId
+                        ,:type
+                        ,:bouwjaar
+                        ,:brandstof
+                        ,:kenteken
+            )";
+
+            $this->db->query($sql);
+            $this->db->bind(':voertuiginstructeurId', $data['voertuiginstructeurId'], PDO::PARAM_INT);
+            $this->db->bind(':instructeurId', $data['instructeur'], PDO::PARAM_INT);
+            $this->db->bind(':typevoertuigId', $data['typevoertuig'], PDO::PARAM_INT);
+            $this->db->bind(':type', $data['type'], PDO::PARAM_STR);
+            $this->db->bind(':bouwjaar', $data['bouwjaar'], PDO::PARAM_STR);
+            $this->db->bind(':brandstof', $data['brandstof'], PDO::PARAM_STR);
+            $this->db->bind(':kenteken', $data['kenteken'], PDO::PARAM_STR);
+            
+            return $this->db->execute();
+        } catch (Exception $e) {
+            /**
+             * Log de error in de functie logger()
+             */
+            logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
+        }
+    }
 }
