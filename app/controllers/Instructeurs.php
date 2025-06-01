@@ -101,19 +101,20 @@ class Instructeurs extends BaseController
     public function update($voertuiginstructeurId)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            // Zorg dat voertuiginstructeurId altijd wordt meegegeven
+            // VoertuiginstructeurId toevoegen aan POST-gegevens
             $_POST['voertuiginstructeurId'] = $voertuiginstructeurId;
-
-            // Update uitvoeren
-            $result = $this->instructeurModel->updateVoertuiggegevens($_POST);
 
             // Haal instructeurId op voor redirect
             $voertuiggegevens = $this->instructeurModel->getVoertuiggegevensById($voertuiginstructeurId);
             $instructeurId = $voertuiggegevens[0]->InstructeurId ?? null;
 
-            if ($result && $instructeurId) {
+            // Update uitvoeren
+            $result = $this->instructeurModel->updateVoertuiggegevens($_POST);
+
+            if ($result) {
                 header('Location: ' . URLROOT . '/instructeurs/voertuigen/' . $instructeurId);
                 exit;
             } else {
@@ -130,7 +131,6 @@ class Instructeurs extends BaseController
                 $this->view('instructeurs/edit', $data);
             }
         } else {
-            // Bij GET: redirect naar edit-pagina
             header('Location: ' . URLROOT . '/instructeurs/edit/' . $voertuiginstructeurId);
             exit;
         }

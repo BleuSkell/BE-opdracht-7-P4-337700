@@ -26,7 +26,8 @@
         <div class="col-2"></div>
         <div class="col-8">
 
-            <form action="<?= URLROOT; ?>/instructeurs/update/<?= $data['voertuiggegevens']->VoertuigInstructeurId ?>" method="post">
+            <form action="<?= URLROOT; ?>/instructeurs/update/<?= $data['voertuiggegevens']->VoertuigInstructeurId; ?>" method="post">
+                
                 <input type="hidden" name="voertuiginstructeurId" id="voertuiginstructeurId" value="<?= $data['voertuiggegevens']->VoertuigInstructeurId; ?>">
 
                 <div class="mb-3 row align-items-center">
@@ -105,14 +106,13 @@
                         <button type="submit" class="btn btn-primary">Wijzig</button>
                     </div>
                 </div>
-                
+
             </form>
 
-            <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
+            <a href="<?= URLROOT; ?>/instructeurs/voertuigen/<?= $data['voertuiggegevens']->InstructeurId; ?>">Terug</a>
         </div>
         <div class="col-2"></div>
     </div>
-
 </div>
 
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>

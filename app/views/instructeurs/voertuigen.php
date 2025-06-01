@@ -70,11 +70,10 @@
                 </tbody>
             </table>
                 
-            <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
+            <a href="<?= URLROOT; ?>/instructeurs/index">Terug</a>
         </div>
         <div class="col-2"></div>
     </div>
-
 </div>
 
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>
