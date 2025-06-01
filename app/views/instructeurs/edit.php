@@ -70,8 +70,12 @@
                     <label for="bouwjaar" class="col-sm-4 col-form-label">Bouwjaar:</label>
                     
                     <div class="col-sm-8">
-                        <input type="date" name="bouwjaar" id="bouwjaar" class="form-control"
-                            value="<?= $data['voertuiggegevens']->Bouwjaar; ?>">
+                        <input  type="text" 
+                                name="bouwjaar" 
+                                id="bouwjaar" 
+                                class="form-control"
+                                value="<?= $data['voertuiggegevens']->Bouwjaar; ?>" 
+                                readonly>
                     </div>
                 </div>
 
