@@ -1,0 +1,1 @@
+{"version":1,"defects":{"InstructeurModelTest::testGetInstructeurById":8,"InstructeurModelTest::testVerifyTypeVoertuigExists":8},"times":{"InstructeurModelTest::testGetInstructeurById":0.354,"InstructeurModelTest::testVerifyTypeVoertuigExists":0.028}}

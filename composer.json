@@ -1,0 +1,13 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "classmap": [
+            "app/"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
