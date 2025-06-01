@@ -18,14 +18,9 @@
         <div class="col-2"></div>
         <div class="col-8">
             <h3><?php echo $data['title']; ?></h3>
-            <h4>Naam: <?= $data['dataRows'][0]->Voornaam, ' ', $data['dataRows'][0]->Tussenvoegsel, ' ', $data['dataRows'][0]->Achternaam ?></h4>
-            <h4>Datum in dienst: <?= date('d-m-Y', strtotime($data['dataRows'][0]->DatumInDienst)); ?></h4>
-            <h4>Aantal sterren: <?= $data['dataRows'][0]->AantalSterren ?></h4>
-            <a href="<?= URLROOT; ?>/instructeurs/beschikbareVoertuigen/<?= $data['dataRows'][0]->InstructeurId; ?>">
-                <button>
-                    Toevoegen voertuig
-                </button>
-            </a>
+            <h4>Naam: <?= $data['instructeur']->Voornaam ?> <?= $data['instructeur']->Tussenvoegsel ?> <?= $data['instructeur']->Achternaam ?></h4>
+            <h4>Datum in dienst: <?= date('d-m-Y', strtotime($data['instructeur']->DatumInDienst)) ?></h4>
+            <h4>Aantal sterren: <?= $data['instructeur']->AantalSterren ?></h4>
         </div>
         <div class="col-2"></div>
     </div>
@@ -33,7 +28,7 @@
     <div class="row mt-3">
         <div class="col-2"></div>
         <div class="col-8">
-
+            
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -43,16 +38,17 @@
                         <th>Bouwjaar</th>
                         <th>Brandstof</th>
                         <th>Rijbewijscategorie</th>
+                        <th>Toevoegen</th>
                         <th>Wijzigen</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (is_null($data['dataRows'])) { ?>
+                    <?php if (is_null($data['beschikbareVoertuigen'])) { ?>
                               <tr>
                                 <td colspan='6' class='text-center'>Door een storing kunnen we op dit moment geen producten tonen uit het magazijn</td>
                               </tr>
                     <?php } else {                              
-                              foreach ($data['dataRows'] as $voertuig) { ?>
+                              foreach ($data['beschikbareVoertuigen'] as $voertuig) { ?>
                                 <tr>
                                     <td><?= $voertuig->TypeVoertuig; ?></td>
                                     <td><?= $voertuig->Type; ?></td>
@@ -60,8 +56,13 @@
                                     <td><?= $voertuig->Bouwjaar ?></td>
                                     <td><?= $voertuig->Brandstof ?></td>
                                     <td><?= $voertuig->RijbewijsCategorie ?></td>
+                                    <td class="text-center">
+                                        <a href="">
+                                            <i class='bi bi-plus'></i>
+                                        </a>
+                                    </td>
                                     <td class='text-center'>
-                                        <a href='<?= URLROOT; ?>/instructeurs/edit/<?= $voertuig->VoertuigInstructeurId ?>'>
+                                        <a href='<?= URLROOT; ?>/instructeurs/wijzigenVoertuigGegevens/<?= $voertuig->VoertuigId ?>'>
                                             <i class='bi bi-pencil-fill'></i>
                                         </a>
                                     </td>
@@ -69,8 +70,8 @@
                     <?php } } ?>
                 </tbody>
             </table>
-                
-            <a href="<?= URLROOT; ?>/instructeurs/index">Terug</a>
+
+            <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
         </div>
         <div class="col-2"></div>
     </div>

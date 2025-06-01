@@ -135,4 +135,48 @@ class Instructeurs extends BaseController
             exit;
         }
     }
+
+    public function beschikbareVoertuigen($instructeurId)
+    {
+        $data = [
+            'title' => 'Beschikbare voertuigen',
+            'message' => NULL,
+            'messageColor' => NULL,
+            'messageVisibility' => 'none',
+            'instructeur' => NULL,
+            'beschikbareVoertuigen' => NULL
+        ];
+
+        $instructeur = $this->instructeurModel->getInstructeurById($instructeurId);
+        $beschikbareVoertuigen = $this->instructeurModel->getAllVoertuigen();
+
+        if (is_null($instructeur)) {
+            // Fout afhandelen
+            $data['message'] = "Er is een fout opgetreden in de database";
+            $data['messageColor'] = "danger";
+            $data['messageVisibility'] = "flex";
+            $data['instructeur'] = NULL;
+            $data['beschikbareVoertuigen'] = NULL;
+
+            header('Refresh:3; url=' . URLROOT . '/Homepages/index');
+        } else {
+            $data['instructeur'] = $instructeur[0];
+            $data['beschikbareVoertuigen'] = $beschikbareVoertuigen;
+        }
+
+        $this->view('instructeurs/beschikbareVoertuigen', $data);
+    }
+
+    public function wijzigenVoertuigGegevens($voertuigId)
+    {
+        $data = [
+            'title' => 'Wijzigen voertuiggegevens',
+            'message' => NULL,
+            'messageColor' => NULL,
+            'messageVisibility' => 'none',
+            'dataRows' => NULL
+        ];
+
+        $this->view('instructeurs/wijzigenVoertuigGegevens', $data);
+    }
 }

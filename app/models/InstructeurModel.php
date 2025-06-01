@@ -29,6 +29,27 @@ class InstructeurModel
         }
     }
 
+    public function getInstructeurById($instructeurId)
+    {
+        try {
+            $sql = "SELECT * FROM instructeur WHERE Id = :instructeurId";
+
+            $this->db->query($sql);
+            $this->db->bind(':instructeurId', $instructeurId, PDO::PARAM_INT);
+
+            $result = $this->db->resultSet();
+
+            $this->db->closeCursor();
+
+            return $result;
+        } catch (Exception $e) {
+            /**
+             * Log de error in de functie logger()
+             */
+            logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
+        }
+    }
+
     public function getVoertuigenByInstructeurId($instructeurId)
     {
         try {
@@ -69,6 +90,26 @@ class InstructeurModel
     {
         try {
             $sql = "SELECT * FROM typevoertuig";
+
+            $this->db->query($sql);
+
+            $result = $this->db->resultSet();
+
+            $this->db->closeCursor();
+
+            return $result;
+        } catch (Exception $e) {
+            /**
+             * Log de error in de functie logger()
+             */
+            logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
+        }
+    }
+
+    public function getAllVoertuigen()
+    {
+        try {
+            $sql = "CALL spGetAllVoertuigen()";
 
             $this->db->query($sql);
 
@@ -135,4 +176,6 @@ class InstructeurModel
             logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
         }
     }
+
+    
 }
