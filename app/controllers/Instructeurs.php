@@ -150,7 +150,7 @@ class Instructeurs extends BaseController
         $instructeur = $this->instructeurModel->getInstructeurById($instructeurId);
         $beschikbareVoertuigen = $this->instructeurModel->getAllVoertuigen();
 
-        if (is_null($instructeur)) {
+        if (is_null($instructeur) || is_null($beschikbareVoertuigen)) {
             // Fout afhandelen
             $data['message'] = "Er is een fout opgetreden in de database";
             $data['messageColor'] = "danger";
@@ -167,16 +167,75 @@ class Instructeurs extends BaseController
         $this->view('instructeurs/beschikbareVoertuigen', $data);
     }
 
-    public function wijzigenVoertuigGegevens($voertuigId)
-    {
+    public function wijzigenVoertuigGegevens($voertuigId, $instructeurId)
+    {   
         $data = [
             'title' => 'Wijzigen voertuiggegevens',
             'message' => NULL,
             'messageColor' => NULL,
             'messageVisibility' => 'none',
-            'dataRows' => NULL
+            'voertuig' => NULL,
+            'typeVoertuigen' => NULL,
+            'instructeurId' => $instructeurId
         ];
 
+        $voertuig = $this->instructeurModel->getVoertuigById($voertuigId);
+        $typeVoertuigen = $this->instructeurModel->getAllTypeVoertuigen();
+
+        if (is_null($voertuig) || is_null($typeVoertuigen)) {
+            // Fout afhandelen
+            $data['message'] = "Er is een fout opgetreden in de database";
+            $data['messageColor'] = "danger";
+            $data['messageVisibility'] = "flex";
+            $data['dataRows'] = NULL;;
+
+            // header('Refresh:3; url=' . URLROOT . '/Homepages/index');
+        } else {
+            $data['voertuig'] = $voertuig[0];
+            $data['typeVoertuigen'] = $typeVoertuigen;
+        }
+
         $this->view('instructeurs/wijzigenVoertuigGegevens', $data);
+    }
+
+    public function updateAndAddVoertuig($voertuigId, $instructeurId)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Verify TypeVoertuigId exists
+            if (!$this->instructeurModel->verifyTypeVoertuigExists($_POST['typeVoertuigId'])) {
+                $data = [
+                    'title' => 'Wijzigen voertuiggegevens',
+                    'message' => 'Ongeldig type voertuig geselecteerd',
+                    'messageColor' => 'danger',
+                    'messageVisibility' => 'flex'
+                ];
+                $this->wijzigenVoertuigGegevens($voertuigId, $instructeurId);
+                return;
+            }
+            
+            // First update the vehicle
+            $updateResult = $this->instructeurModel->updateVoertuig($_POST);
+            
+            if ($updateResult) {
+                // Then add to instructor
+                $addResult = $this->instructeurModel->addVoertuigToInstructeur($voertuigId, $instructeurId);
+                
+                if ($addResult) {
+                    header("Location: " . URLROOT . "/instructeurs/voertuigen/" . $instructeurId);
+                    exit();
+                }
+            }
+            
+            // If we get here, something went wrong
+            $data = [
+                'title' => 'Wijzigen voertuiggegevens',
+                'message' => 'Er is een fout opgetreden bij het opslaan',
+                'messageColor' => 'danger',
+                'messageVisibility' => 'flex'
+            ];
+            $this->wijzigenVoertuigGegevens($voertuigId, $instructeurId);
+        }
     }
 }

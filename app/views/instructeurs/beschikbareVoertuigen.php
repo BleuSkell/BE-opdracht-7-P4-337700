@@ -62,7 +62,7 @@
                                         </a>
                                     </td>
                                     <td class='text-center'>
-                                        <a href='<?= URLROOT; ?>/instructeurs/wijzigenVoertuigGegevens/<?= $voertuig->VoertuigId ?>'>
+                                        <a href='<?= URLROOT; ?>/instructeurs/wijzigenVoertuigGegevens/<?= $voertuig->VoertuigId; ?>/<?= $data['instructeur']->Id; ?>'>
                                             <i class='bi bi-pencil-fill'></i>
                                         </a>
                                     </td>
